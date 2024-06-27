@@ -57,10 +57,28 @@ function notifyUser(version: string, url: string) {
 
   chrome.notifications.onClicked.addListener((notificationId) => {
     if (notificationId === "updateNotification") {
-      // Open the URL to download the update
-      chrome.tabs.create({ url: url });
+      updateExtension(url);
     }
   });
+}
+
+function updateExtension(url: string) {
+  chrome.downloads.download(
+    { url, filename: "chrome-extension-ts.zip" },
+    (downloadId) => {
+      chrome.downloads.onChanged.addListener(function listener(delta) {
+        if (
+          delta.id === downloadId &&
+          delta.state &&
+          delta.state.current === "complete"
+        ) {
+          chrome.downloads.onChanged.removeListener(listener);
+          // After download is complete, reload the extension
+          chrome.runtime.reload();
+        }
+      });
+    }
+  );
 }
 
 // Check for updates when the extension is installed or updated
