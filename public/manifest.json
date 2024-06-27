@@ -1,0 +1,19 @@
+{
+    "name": "md-screen-kbd-ext",
+    "description": "mediDOK Screen keyboard extension for Chrome",
+    "version": "0.1.0",
+    "manifest_version": 3,
+    "content_scripts": [
+        {
+            "matches": ["<all_urls>"],
+            "js": ["contentScript.js"]
+        }
+    ],
+    "permissions": ["storage", "scripting"],
+    "icons": {
+        "16": "icons/medi_icon_24.png",
+        "32": "icons/medi_icon_24.png",
+        "48": "icons/medi_icon_24.png",
+        "128": "icons/medi_icon_24.png"
+    }
+}

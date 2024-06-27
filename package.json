@@ -1,21 +1,46 @@
 {
-  "name": "chrome-extension-ts",
-  "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
-  "scripts": {
-    "build": "webpack",
-    "watch": "webpack --watch",
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
-  "devDependencies": {
-    "@types/chrome": "0.0.268",
-    "ts-loader": "^9.5.1",
-    "typescript": "^5.5.2",
-    "webpack": "^5.92.1",
-    "webpack-cli": "^5.1.4"
-  }
+    "name": "md-screen-kbd-ext",
+    "version": "0.1.0",
+    "description": "mediDOK Screen keyboard extension for Chrome",
+    "main": "index.js",
+    "scripts": {
+        "ts-watch:dev": "webpack --mode=development --stats-error-details --watch --config ./webpack.config.js",
+        "build": "webpack --mode=production --stats-error-details --config ./webpack.config.js",
+        "build-dev": "webpack --mode=development --stats-error-details --config ./webpack.config.js",
+        "run:tests": "echo not used"
+    },
+    "author": "mediDOK",
+    "license": "SEE LICENSE IN mediDOK.license",
+    "dependencies": {},
+    "devDependencies": {
+        "@types/chrome": "0.0.268",
+        "@types/lodash": "^4.14.172",
+        "@types/turndown": "^5.0.1",
+        "@typescript-eslint/eslint-plugin": "^5.13.0",
+        "@typescript-eslint/parser": "^5.13.0",
+        "copy-webpack-plugin": "^9.0.1",
+        "create-file-webpack": "^1.0.2",
+        "css-loader": "^5.2.1",
+        "mini-css-extract-plugin": "^2.5.3",
+        "modify-source-webpack-plugin": "^4.1.0",
+        "npm-check": "^6.0.1",
+        "path": "^0.12.7",
+        "postcss": "^8.3.6",
+        "postcss-copy": "^7.1.0",
+        "postcss-copy-assets": "^0.3.1",
+        "postcss-loader": "^7.0.1",
+        "raw-loader": "^4.0.2",
+        "sass": "^1.32.8",
+        "sass-loader": "^11.0.1",
+        "style-loader": "^2.0.0",
+        "svg-inline-loader": "^0.8.2",
+        "ts-loader": "^9.2.5",
+        "typescript": "4.3.5",
+        "url-loader": "^4.1.1",
+        "webpack": "^5.51.1",
+        "webpack-cli": "^4.8.0"
+    },
+    "browserslist": [
+        "last 2 version"
+    ]
 }
