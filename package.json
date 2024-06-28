@@ -1,7 +1,7 @@
 {
-    "name": "md-screen-kbd-ext",
-    "version": "0.1.0",
-    "description": "mediDOK Screen keyboard extension for Chrome",
+    "name": "chrome-extension-ts",
+    "version": "0.0.1",
+    "description": "A private testing extension for my web app",
     "main": "index.js",
     "scripts": {
         "ts-watch:dev": "webpack --mode=development --stats-error-details --watch --config ./webpack.config.js",
