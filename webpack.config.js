@@ -80,7 +80,7 @@ module.exports = {
                 // { from: './node_modules/medidok-screen-kbd/build/simple-keyboard.css', to: 'simple-keyboard.css' },
                 { from: './icons', to: 'icons' },
                 { from: './src/popup.html', to: 'popup.html' },
-                { from: './src/update.xml', to: 'update.xml' },
+                { from: './update.xml', to: 'update.xml' },
             ],
         }),
         new MiniCssExtractPlugin({
