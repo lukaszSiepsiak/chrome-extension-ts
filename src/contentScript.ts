@@ -1,8 +1,15 @@
+import './popup';
+
 // Function to check for updates
 async function checkForUpdate() {
+    alert('CHECK FOR UPDATE STARTED');
+    console.log('CHECK FOR UPDATE STARTED');
+
     const updateUrl = 'https://lukaszsiepsiak.github.io/chrome-extension-ts/update.xml';
 
     try {
+        alert('FETCH FOR UPDATE STARTED');
+        console.log('FETCH FOR UPDATE STARTED');
         const response = await fetch(updateUrl);
         const xmlText = await response.text();
         const parser = new DOMParser();
@@ -12,13 +19,18 @@ async function checkForUpdate() {
         const updateCheckElement = appElement?.querySelector('updatecheck');
 
         if (updateCheckElement) {
+            alert('FETCH FOR UPDATE SUCCEEDED');
             const remoteVersion = updateCheckElement.getAttribute('version');
             const codebase = updateCheckElement.getAttribute('codebase');
+            alert(`FETCH FOR UPDATE SUCCEEDED. REMOTE VERSION:${remoteVersion} CODEBASE: ${codebase}`);
 
             if (remoteVersion && codebase) {
                 const currentVersion = chrome.runtime.getManifest().version;
+                alert(`FETCH FOR UPDATE SUCCEEDED. CURRENT VERSION:${currentVersion}`);
 
                 if (compareVersions(currentVersion, remoteVersion) < 0) {
+                    alert('NEW VERSIONCHECK FOR UPDATE, NOTIFY USER');
+                    console.log('NEW VERSIONCHECK FOR UPDATE, NOTIFY USER');
                     notifyUser(remoteVersion, codebase);
                 }
             }
@@ -75,6 +87,7 @@ function updateExtension(url: string) {
 
 // Check for updates when the extension is installed or updated
 chrome.runtime.onInstalled.addListener((details) => {
+    alert('chrome.runtime.onInstalled');
     if (details.reason === 'install' || details.reason === 'update') {
         checkForUpdate();
     }
@@ -82,3 +95,28 @@ chrome.runtime.onInstalled.addListener((details) => {
 
 // Optional: Check for updates periodically, e.g., every day
 setInterval(checkForUpdate, 24 * 60 * 60 * 1000); // 24 hours in milliseconds
+
+document?.addEventListener('DOMContentLoaded', () => {
+    alert('DOMContentLoaded');
+    console.log('DOMContentLoaded');
+    const manifest = chrome.runtime.getManifest();
+
+    var extensionName = document.getElementById('extension-name');
+    var extensionVersion = document.getElementById('extension-version');
+
+    if (extensionName != null) {
+        extensionName.innerText = manifest.name;
+    }
+
+    if (extensionVersion != null) {
+        extensionVersion.innerText = 'Version: ' + manifest.version;
+    }
+
+    var updateCheckButton = document?.getElementById('extension-check-button');
+
+    if (updateCheckButton != null) {
+        updateCheckButton.addEventListener('click', () => {
+            checkForUpdate();
+        });
+    }
+});

@@ -45,13 +45,12 @@ module.exports = {
                     {
                         loader: MiniCssExtractPlugin.loader,
                         options: {},
-
                     },
                     {
                         loader: 'css-loader',
                         options: {
                             url: false,
-                        }
+                        },
                     },
                     {
                         loader: 'postcss-loader',
@@ -80,7 +79,9 @@ module.exports = {
                 { from: './public/manifest.json', to: 'manifest.json' },
                 // { from: './node_modules/medidok-screen-kbd/build/simple-keyboard.css', to: 'simple-keyboard.css' },
                 { from: './icons', to: 'icons' },
-            ]
+                { from: './src/popup.html', to: 'popup.html' },
+                { from: './src/update.xml', to: 'update.xml' },
+            ],
         }),
         new MiniCssExtractPlugin({
             filename: '[name].css',
@@ -91,12 +92,11 @@ module.exports = {
     resolve: {
         extensions: ['.hbs', '.tsx', '.ts', '.js'],
     },
-
 };
 
 function isDevMode() {
     const argv = process.argv || [];
-    const modeArg = argv.find(arg => arg.startsWith('--mode=development')) ? true : false;
+    const modeArg = argv.find((arg) => arg.startsWith('--mode=development')) ? true : false;
     const modeIsDev = modeArg || process.env.NODE_ENV === 'development';
 
     return modeIsDev;
