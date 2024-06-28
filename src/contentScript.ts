@@ -92,12 +92,12 @@ function updateExtension(url: string) {
 }
 
 // Check for updates when the extension is installed or updated
-chrome.runtime.onInstalled.addListener((details) => {
-    alert('chrome.runtime.onInstalled');
-    if (details.reason === 'install' || details.reason === 'update') {
-        checkForUpdate();
-    }
-});
+// chrome.runtime.onInstalled.addListener((details) => {
+//     alert('chrome.runtime.onInstalled');
+//     if (details.reason === 'install' || details.reason === 'update') {
+//         checkForUpdate();
+//     }
+// });
 
 // Optional: Check for updates periodically, e.g., every day
 setInterval(checkForUpdate, 24 * 60 * 60 * 1000); // 24 hours in milliseconds
