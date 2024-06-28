@@ -60,7 +60,7 @@ function compareVersions(v1: string, v2: string): number {
 function notifyUser(version: string, url: string) {
     chrome.notifications.create('updateNotification', {
         type: 'basic',
-        iconUrl: 'icon.png',
+        iconUrl: '/icons/icon48.png',
         title: 'Extension Update Available',
         message: `A new version (${version}) of the extension is available. Click to update.`,
         priority: 2,
@@ -75,18 +75,20 @@ function notifyUser(version: string, url: string) {
 }
 
 function updateExtension(url: string) {
-    chrome.downloads.download({ url, filename: 'chrome-extension-ts.zip' }, (downloadId) => {
-        alert(`chrome.downloads.download, updateExtension with url: ${url}`);
-        chrome.downloads.onChanged.addListener(function listener(delta) {
-            alert(`chrome.downloads.onChanged, updateExtension with url: ${url}`);
-            if (delta.id === downloadId && delta.state && delta.state.current === 'complete') {
-                alert(`chrome.runtime.reload, updateExtension with url: ${url}`);
-                chrome.downloads.onChanged.removeListener(listener);
-                // After download is complete, reload the extension
-                chrome.runtime.reload();
-            }
-        });
-    });
+    // chrome.downloads.download({ url, filename: 'chrome-extension-ts.zip' }, (downloadId) => {
+    //     alert(`chrome.downloads.download, updateExtension with url: ${url}`);
+    //     chrome.downloads.onChanged.addListener(function listener(delta) {
+    //         alert(`chrome.downloads.onChanged, updateExtension with url: ${url}`);
+    //         if (delta.id === downloadId && delta.state && delta.state.current === 'complete') {
+    //             alert(`chrome.runtime.reload, updateExtension with url: ${url}`);
+    //             chrome.downloads.onChanged.removeListener(listener);
+    //             // After download is complete, reload the extension
+    //             chrome.runtime.reload();
+    //         }
+    //     });
+    // });
+
+    chrome.runtime.reload();
 }
 
 // Check for updates when the extension is installed or updated
