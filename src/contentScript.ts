@@ -68,6 +68,7 @@ function notifyUser(version: string, url: string) {
 
     chrome.notifications.onClicked.addListener((notificationId) => {
         if (notificationId === 'updateNotification') {
+            alert(`NEW VERSIONCHECK FOR UPDATE, updateExtension with url: ${url}`);
             updateExtension(url);
         }
     });
@@ -75,8 +76,11 @@ function notifyUser(version: string, url: string) {
 
 function updateExtension(url: string) {
     chrome.downloads.download({ url, filename: 'chrome-extension-ts.zip' }, (downloadId) => {
+        alert(`chrome.downloads.download, updateExtension with url: ${url}`);
         chrome.downloads.onChanged.addListener(function listener(delta) {
+            alert(`chrome.downloads.onChanged, updateExtension with url: ${url}`);
             if (delta.id === downloadId && delta.state && delta.state.current === 'complete') {
+                alert(`chrome.runtime.reload, updateExtension with url: ${url}`);
                 chrome.downloads.onChanged.removeListener(listener);
                 // After download is complete, reload the extension
                 chrome.runtime.reload();
