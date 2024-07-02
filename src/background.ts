@@ -1,6 +1,6 @@
 chrome.runtime.onInstalled.addListener((details) => {
     if (details.reason === chrome.runtime.OnInstalledReason.UPDATE) {
-        console.log(`Updated from ${details.previousVersion} to ${chrome.runtime.getManifest().version}`);
+        console.log(`Updated from version ${details.previousVersion} to ${chrome.runtime.getManifest().version}`);
         // Optionally notify the user about the update
         chrome.notifications.create({
             type: 'basic',
