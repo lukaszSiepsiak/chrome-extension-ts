@@ -14,7 +14,7 @@ document?.addEventListener('DOMContentLoaded', () => {
         extensionVersion.innerText = 'Version: ' + manifest.version;
     }
 
-    const updateButton = document.getElementById('updateButton');
+    const updateButton = document.getElementById('extension-check-button');
 
     if (updateButton) {
         updateButton.addEventListener('click', function () {
