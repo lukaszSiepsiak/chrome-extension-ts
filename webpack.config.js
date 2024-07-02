@@ -28,7 +28,7 @@ console.log(`Current dir: ${__dirname}`);
 
 module.exports = {
     entry: {
-        // serviceWorker: './src/serviceWorker.ts',
+        background: './src/background.ts',
         contentScript: './src/contentScript.ts',
     },
     devtool: 'source-map',
@@ -80,7 +80,7 @@ module.exports = {
                 // { from: './node_modules/medidok-screen-kbd/build/simple-keyboard.css', to: 'simple-keyboard.css' },
                 { from: './icons', to: 'icons' },
                 { from: './src/popup.html', to: 'popup.html' },
-                { from: './update.xml', to: 'update.xml' },
+                { from: './update/update.xml', to: 'update.xml' },
             ],
         }),
         new MiniCssExtractPlugin({
