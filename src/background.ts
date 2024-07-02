@@ -4,7 +4,7 @@ chrome.runtime.onInstalled.addListener((details) => {
         // Optionally notify the user about the update
         chrome.notifications.create({
             type: 'basic',
-            iconUrl: 'images/icon128.png',
+            iconUrl: 'icons/icon128.png',
             title: 'Extension Updated',
             message: `Updated to version ${chrome.runtime.getManifest().version}`,
         });
