@@ -5,9 +5,11 @@ chrome.runtime.onInstalled.addListener((details) => {
         chrome.notifications.create({
             type: 'basic',
             iconUrl: 'icons/icon128.png',
-            title: 'Extension Updated',
+            title: 'Extension Updated. Reloading extensions',
             message: `Updated to version ${chrome.runtime.getManifest().version}`,
         });
+
+        chrome.runtime.reload();
     }
 });
 
