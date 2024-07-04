@@ -1,2 +1,130 @@
-!function(){"use strict";var e={534:function(){null===document||void 0===document||document.addEventListener("DOMContentLoaded",(()=>{alert("DOMContentLoaded"),console.log("DOMContentLoaded");const e=chrome.runtime.getManifest();var n=document.getElementById("extension-name"),t=document.getElementById("extension-version");null!=n&&(n.innerText=e.name),null!=t&&(t.innerText="Version: "+e.version);const o=document.getElementById("extension-check-button");o?o.addEventListener("click",(function(){chrome.runtime.requestUpdateCheck(((e,n)=>{"update_available"===e?(alert("New version available: "+(null==n?void 0:n.version)),chrome.runtime.reload()):"no_update"===e?alert("No new updates available."):alert("Error checking for updates: "+e)}))})):console.error("Button not found!")}))}},n={};function t(o){var r=n[o];if(void 0!==r)return r.exports;var u=n[o]={exports:{}};return e[o](u,u.exports,t),u.exports}t.n=function(e){var n=e&&e.__esModule?function(){return e.default}:function(){return e};return t.d(n,{a:n}),n},t.d=function(e,n){for(var o in n)t.o(n,o)&&!t.o(e,o)&&Object.defineProperty(e,o,{enumerable:!0,get:n[o]})},t.o=function(e,n){return Object.prototype.hasOwnProperty.call(e,n)},t(534)}();
+/******/ (function() { // webpackBootstrap
+/******/ 	"use strict";
+/******/ 	var __webpack_modules__ = ({
+
+/***/ "./src/popup.ts":
+/*!**********************!*\
+  !*** ./src/popup.ts ***!
+  \**********************/
+/***/ (function() {
+
+
+document === null || document === void 0 ? void 0 : document.addEventListener('DOMContentLoaded', () => {
+    alert('DOMContentLoaded');
+    const manifest = chrome.runtime.getManifest();
+    var extensionName = document.getElementById('extension-name');
+    var extensionVersion = document.getElementById('extension-version');
+    if (extensionName != null) {
+        extensionName.innerText = manifest.name;
+    }
+    if (extensionVersion != null) {
+        extensionVersion.innerText = 'Version: ' + manifest.version;
+    }
+    const updateButton = document.getElementById('extension-check-button');
+    if (updateButton) {
+        updateButton.addEventListener('click', function () {
+            chrome.runtime.requestUpdateCheck((status, details) => {
+                if (status === 'update_available') {
+                    alert('New version available: ' + (details === null || details === void 0 ? void 0 : details.version));
+                    chrome.runtime.reload();
+                }
+                else if (status === 'no_update') {
+                    alert('No new updates available.');
+                }
+                else {
+                    alert('Error checking for updates: ' + status);
+                }
+            });
+        });
+    }
+    else {
+        console.error('Button not found!');
+    }
+});
+
+
+/***/ })
+
+/******/ 	});
+/************************************************************************/
+/******/ 	// The module cache
+/******/ 	var __webpack_module_cache__ = {};
+/******/ 	
+/******/ 	// The require function
+/******/ 	function __webpack_require__(moduleId) {
+/******/ 		// Check if module is in cache
+/******/ 		var cachedModule = __webpack_module_cache__[moduleId];
+/******/ 		if (cachedModule !== undefined) {
+/******/ 			return cachedModule.exports;
+/******/ 		}
+/******/ 		// Create a new module (and put it into the cache)
+/******/ 		var module = __webpack_module_cache__[moduleId] = {
+/******/ 			// no module.id needed
+/******/ 			// no module.loaded needed
+/******/ 			exports: {}
+/******/ 		};
+/******/ 	
+/******/ 		// Execute the module function
+/******/ 		__webpack_modules__[moduleId](module, module.exports, __webpack_require__);
+/******/ 	
+/******/ 		// Return the exports of the module
+/******/ 		return module.exports;
+/******/ 	}
+/******/ 	
+/************************************************************************/
+/******/ 	/* webpack/runtime/compat get default export */
+/******/ 	!function() {
+/******/ 		// getDefaultExport function for compatibility with non-harmony modules
+/******/ 		__webpack_require__.n = function(module) {
+/******/ 			var getter = module && module.__esModule ?
+/******/ 				function() { return module['default']; } :
+/******/ 				function() { return module; };
+/******/ 			__webpack_require__.d(getter, { a: getter });
+/******/ 			return getter;
+/******/ 		};
+/******/ 	}();
+/******/ 	
+/******/ 	/* webpack/runtime/define property getters */
+/******/ 	!function() {
+/******/ 		// define getter functions for harmony exports
+/******/ 		__webpack_require__.d = function(exports, definition) {
+/******/ 			for(var key in definition) {
+/******/ 				if(__webpack_require__.o(definition, key) && !__webpack_require__.o(exports, key)) {
+/******/ 					Object.defineProperty(exports, key, { enumerable: true, get: definition[key] });
+/******/ 				}
+/******/ 			}
+/******/ 		};
+/******/ 	}();
+/******/ 	
+/******/ 	/* webpack/runtime/hasOwnProperty shorthand */
+/******/ 	!function() {
+/******/ 		__webpack_require__.o = function(obj, prop) { return Object.prototype.hasOwnProperty.call(obj, prop); }
+/******/ 	}();
+/******/ 	
+/******/ 	/* webpack/runtime/make namespace object */
+/******/ 	!function() {
+/******/ 		// define __esModule on exports
+/******/ 		__webpack_require__.r = function(exports) {
+/******/ 			if(typeof Symbol !== 'undefined' && Symbol.toStringTag) {
+/******/ 				Object.defineProperty(exports, Symbol.toStringTag, { value: 'Module' });
+/******/ 			}
+/******/ 			Object.defineProperty(exports, '__esModule', { value: true });
+/******/ 		};
+/******/ 	}();
+/******/ 	
+/************************************************************************/
+var __webpack_exports__ = {};
+// This entry need to be wrapped in an IIFE because it need to be isolated against other modules in the chunk.
+!function() {
+/*!******************************!*\
+  !*** ./src/contentScript.ts ***!
+  \******************************/
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _popup__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./popup */ "./src/popup.ts");
+/* harmony import */ var _popup__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_popup__WEBPACK_IMPORTED_MODULE_0__);
+
+
+}();
+/******/ })()
+;
 //# sourceMappingURL=contentScript.js.map
