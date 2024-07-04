@@ -1,11 +1,11 @@
-chrome.runtime.onStartup.addListener(() => {
-    // This will run each time Chrome starts
-    console.log('chrome.runtime.onStartup => Chrome started');
+// chrome.runtime.onStartup.addListener(() => {
+//     // This will run each time Chrome starts
+//     console.log('chrome.runtime.onStartup => Chrome started');
 
-    sendMessage('chromeStarted', null, (message: string) => {
-        console.log(`Message from extension after chromeStarted: ${message}`);
-    });
-});
+//     sendMessage('chromeStarted', null, (message: string) => {
+//         console.log(`Message from extension after chromeStarted: ${message}`);
+//     });
+// });
 
 // chrome.runtime.onConnect.addListener(() => {
 //     console.log('chrome.runtime.onConnect => Chrome runtime connected');
@@ -31,10 +31,10 @@ chrome.runtime.onStartup.addListener(() => {
 //     });
 // });
 
-function sendMessage(message: string, data: any, callback: (responseData: any) => void) {
-    if (chrome.runtime) {
-        const dataTSend = { action: message, data };
+// function sendMessage(message: string, data: any, callback: (responseData: any) => void) {
+//     if (chrome.runtime) {
+//         const dataTSend = { action: message, data };
 
-        chrome.runtime.sendMessage(dataTSend, callback);
-    }
-}
+//         chrome.runtime.sendMessage(dataTSend, callback);
+//     }
+// }
