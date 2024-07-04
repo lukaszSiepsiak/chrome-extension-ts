@@ -16,50 +16,62 @@ document?.addEventListener('DOMContentLoaded', () => {
     const updateButton = document.getElementById('extension-check-button');
 
     if (updateButton) {
-        updateButton.addEventListener('click', function () {
-            chrome.runtime.requestUpdateCheck((status, details) => {
-                if (status === 'update_available') {
-                    alert('New version available: ' + details?.version);
-                    // Logic to handle the update, for example, reload the extension
-                    chrome.runtime.reload();
-                } else if (status === 'no_update') {
-                    alert('No new updates available.');
-                } else {
-                    alert('Error checking for updates: ' + status);
-                }
-            });
+        updateButton.addEventListener('click', () => {
+            checkForUpdates();
         });
     } else {
         console.error('Button not found!');
     }
 });
 
-// chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
-//     if (message.action == 'chromeStarted') {
-//         alert(`Chrome runtime started. Sender url: ${sender.url}`);
+function checkForUpdates() {
+    chrome.runtime.requestUpdateCheck((status, details) => {
+        if (status === 'update_available') {
+            alert('New version available: ' + details?.version);
+            // Logic to handle the update, for example, reload the extension
+            chrome.runtime.reload();
 
-//         sendResponse('Chrome runtime started');
+            alert('Extension was reloaded successfully');
+        } else if (status === 'no_update') {
+            alert('No new updates available.');
+        } else if (status === 'throttled') {
+            alert('Update check throttled. Trying again later.');
+            // Schedule the next check in a few hours
+            setTimeout(checkForUpdates, 4 * 60 * 60 * 1000); // 4 hours
+        } else {
+            alert('Error checking for updates: ' + status);
+        }
+    });
+}
 
-//         return true;
-//     } else if (message.action == 'chromeConnected') {
-//         alert(`Chrome runtime connected. Sender url: ${sender.url}`);
+checkForUpdates();
 
-//         sendResponse('Chrome runtime connected');
+chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
+    if (message.action == 'chromeStarted') {
+        alert(`Chrome runtime started. Sender url: ${sender.url}`);
 
-//         return true;
-//     } else if (message.action == 'extensionInstalled') {
-//         alert(`Extension installed. Sender url: ${sender?.url}`);
+        sendResponse('Chrome runtime started');
 
-//         sendResponse('Extension installed');
+        return true;
+    } else if (message.action == 'chromeConnected') {
+        alert(`Chrome runtime connected. Sender url: ${sender.url}`);
 
-//         return true;
-//     } else if (message.action == 'extensionUpdateAvailable') {
-//         alert(`New version available: ${message.data}. Sender url: ${sender.url}`);
+        sendResponse('Chrome runtime connected');
 
-//         chrome.runtime.reload();
+        return true;
+    } else if (message.action == 'extensionInstalled') {
+        alert(`Extension installed. Sender url: ${sender?.url}`);
 
-//         sendResponse('Extension reloaded');
+        sendResponse('Extension installed');
 
-//         return true;
-//     }
-// });
+        return true;
+    } else if (message.action == 'extensionUpdateAvailable') {
+        alert(`New version available: ${message.data}. Sender url: ${sender.url}`);
+
+        chrome.runtime.reload();
+
+        sendResponse('Extension reloaded');
+
+        return true;
+    }
+});
