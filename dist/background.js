@@ -7,32 +7,36 @@ var __webpack_exports__ = {};
 
 chrome.runtime.onStartup.addListener(() => {
     console.log('chrome.runtime.onStartup => Chrome started');
-    sendMessage('chromeStarted', null, (message) => {
-        console.log(`Message from extension after chromeStarted: ${message}`);
-    });
-});
-chrome.runtime.onConnect.addListener(() => {
-    console.log('chrome.runtime.onConnect => Chrome runtime connected');
-    sendMessage('chromeConnected', null, (message) => {
-        console.log(`Message from extension after chromeConnected: ${message}`);
-    });
+    sendMessage('chromeStarted', null);
 });
 chrome.runtime.onInstalled.addListener(() => {
     console.log('chrome.runtime.onInstalled => Invoked when extension is first installed, when the extension is updated to a new version, and when Chrome is updated to a new version');
-    sendMessage('extensionInstalled', null, (message) => {
-        console.log(`Message from extension after extensionInstalled: ${message}`);
+    chrome.runtime.onConnect.addListener((port) => {
+        if (port.name === 'popup') {
+            port.postMessage({ message: 'extensionInstalled' });
+            port.onMessage.addListener((msg) => {
+                console.log('Response from popup:', msg);
+            });
+        }
     });
 });
 chrome.runtime.onUpdateAvailable.addListener((details) => {
     console.log('chrome.runtime.onUpdateAvailable => Fired when an update is available');
-    sendMessage('extensionUpdateAvailable', details === null || details === void 0 ? void 0 : details.version, (message) => {
-        console.log(`Message from extension after extensionUpdateAvailable: ${message}`);
-    });
+    sendMessage('extensionUpdateAvailable', details === null || details === void 0 ? void 0 : details.version);
 });
-function sendMessage(message, data, callback) {
-    if (chrome.runtime) {
+function sendMessage(message, data = {}) {
+    if (chrome && chrome.runtime) {
         const dataTSend = { action: message, data };
-        chrome.runtime.sendMessage(dataTSend, callback);
+        setTimeout(() => {
+            chrome.runtime.sendMessage(dataTSend, (response) => {
+                if (chrome.runtime.lastError) {
+                    console.error('Error sending signal from background service worker script. Message: ', chrome.runtime.lastError.message);
+                }
+                else {
+                    console.log('Signal send successfully from background service worker script. Response message: ', response === null || response === void 0 ? void 0 : response.toString());
+                }
+            });
+        }, 0);
     }
 }
 
